@@ -1,37 +1,40 @@
-# DHT11 Python library
-
-This simple class can be used for reading temperature and humidity values from DHT11 sensor on Raspberry Pi.
+# Cryptography For IOT
+The aim of this project is to help secure iot devices so that data can be transfered securely between devices.
 
 # Usage
 
-1. Instantiate the `DHT11` class with the pin number as constructor parameter.
-2. Call `read()` method, which will return `DHT11Result` object with actual values and error code.
+1. Import the pub_msg function fro pub.py file.
+2. Call `pub_msg()` to publish the message.
 
 For example:
 
 ```python
 import RPi.GPIO as GPIO
 import dht11
-
+import time
+import datetime
+from pub import pub_msg
 # initialize GPIO
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.cleanup()
 
 # read data using pin 14
-instance = dht11.DHT11(pin = 14)
-result = instance.read()
+instance = dht11.DHT11(pin=17)
 
-if result.is_valid():
-    print("Temperature: %d C" % result.temperature)
-    print("Humidity: %d %%" % result.humidity)
-else:
-    print("Error: %d" % result.error_code)
+while True:
+    result = instance.read()
+    if result.is_valid():
+        print("Last valid input: " + str(datetime.datetime.now()))
+        print("Temperature: %d C" % result.temperature)
+	    print("Temperature: %d F" % ((result.temperature * 9/5)+32))
+	    pub_msg(((result.temperature * 9/5)+32))
+        print("Humidity: %d %%" % result.humidity)
+	
+    time.sleep(1)
+
 ```
 
-For working example, see `dht11_example.py` (you probably need to adjust pin for your configuration)
+For working example, see `temp.py` (you would probably need to adjust pin for your configuration)
 
 
-# License
-
-This project is licensed under the terms of the MIT license.
