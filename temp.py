@@ -8,7 +8,6 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.cleanup()
 
-pub_msg("hello")
 # read data using pin 17
 instance = dht11.DHT11(pin=17)
 
@@ -18,6 +17,7 @@ while True:
         print("Last valid input: " + str(datetime.datetime.now()))
         print("Temperature: %d C" % result.temperature)
 	print("Temperature: %d F" % ((result.temperature * 9/5)+32))
+	pub_msg(((result.temperature * 9/5)+32))
         print("Humidity: %d %%" % result.humidity)
 	
     time.sleep(1)
