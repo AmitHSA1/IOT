@@ -6,6 +6,8 @@ The aim of this project is to help secure iot devices so that data can be transf
 1. Import the pub_msg function fro pub.py file.
 2. Call `pub_msg()` to publish the message.
 
+Run the `sub.py` script to first Subscribe to the topic and the run `pub.py` script to publish the message on the topic
+
 For example:
 
 ```python
